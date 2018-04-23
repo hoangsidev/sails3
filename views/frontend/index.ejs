@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+            <% if(req.session.me) {
+            var data_user_session = JSON.parse(req.session.me);
+            if(data_user_session!=null && data_user_session.length > 0) {
+            data_user_session.forEach(function(index_session){ %>
+            
+                <h1>Xin chào <% if (index_session.username) { %><%= index_session.username %><% } %></h1>
+
+
+                <% })} } else { %>
+               <h1>Chưa đăng nhập</h1>
+               <% } %>
+
+</body>
+</html>
