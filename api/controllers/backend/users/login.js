@@ -39,7 +39,8 @@ module.exports = {
       } else {
         this.req.session.me = data_user ? JSON.stringify(data_user) : null; // đăng ký session
 
-        // không làm được cookie
+        // không làm được cookie 
+        
         // var count_approvals = await  Words.count({ 'active' : [ 0, 1 ] });
         // this.req.session.count_approvals = count_approvals!=0 ? JSON.stringify(count_approvals) : null;
         // console.log(this.req.session.count_approvals);
