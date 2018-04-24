@@ -10,7 +10,7 @@
                         <% var data_word = JSON.parse(data_word_json);
                         if(data_word.length > 0) {
                         data_word.forEach(function(index){ %>
-                    <form action="<%= get_base_url_admin() %>/word/update" method="POST" id="form_edit">
+                    <form action="<%= get_base_url_admin() %>/approval/update" method="POST" id="form_edit">
                         <input type="hidden" name="id" value="<% if (index.id) { %><%= index.id %><% } %>">
                         <div class="row">
                             <div class="col-md-4">
@@ -334,7 +334,7 @@
                                     <i class="fa fa-ban" aria-hidden="true"></i> Hủy</a>
                                     <form action="<%= get_base_url_admin() %>/approval/delete" method="POST" style="display:inline-block;">
                                         <input type="hidden" value="<%= index.id %>" name="id">
-                                        <input type="hidden" name="old_url" value="">
+                                        <input type="hidden" name="check_page" value="edit">
                                         <button type="submit" onClick="return confirm('Bạn chắc chắn ?')" class="btn btn-danger ">
                                                 <i class="fa fa-trash" aria-hidden="true"></i> Xóa từ này
                                         </button>

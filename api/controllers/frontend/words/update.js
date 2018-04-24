@@ -195,7 +195,7 @@ module.exports = {
         // console.log(redirect('back'));
         if (data_word) {
           // return exits.redirect('/backend/word/edit/' + data_word[0].id);
-          return exits.redirect('/backend/approvals/page/1');
+          return exits.redirect('back');
         }
   }
 };

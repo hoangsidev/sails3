@@ -303,11 +303,23 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-xs-12" style="margin-top: 10px;">
-                            <small class="pull-right" style="color: #777;font-style: italic;">Được thêm bởi <strong><% if (index.user_created) { %>
-                                <%= index.user_created %><% } %></strong> (<% if (index.created_at) { %><%= index.created_at %><% } %>), duyệt bởi <strong><% if (index.user_actived) { %><%= index.user_actived %><% } %></strong> (<% if (index.updated_at) { %><%= index.updated_at %><% } %>)</small>
-                            <div class="clearfix"></div>
-                            <hr style="margin-top: 10px;">
-                    </div>
+                        <hr style="margin-top: 10px;">
+                    <% if (index.active && index.active=='0') { %>
+                        <span class="label label-danger">Chưa duyệt</span>
+                    <% } else if (index.active && index.active=='2') {  %>
+                        <span class="label label-danger">Đã duyệt bởi Quản trị viên <% if (index.user_actived) { %><strong><%= index.user_actived %></strong><% } %></span>
+                    <% } %>
+<br>
+                 
+
+                        <small  style="color: #777;font-style: italic;">
+                            - Được đóng góp bởi <strong><% if (index.user_created) { %><%= index.user_created %><% } else { %> Không xác định <% } %></strong>  <% if (index.created_at) { %>(<%= get_time(index.created_at) %>)<% } %> / Địa chỉ IP : <% if (index.user_ip) { %><strong><%= index.user_ip %></strong><% } %>
+                            <br>- Được duyệt lần 1 bởi Biên tập viên <strong><% if (index.user_updated) { %><%= index.user_updated %><% } else { %> Không xác định <% } %></strong> <% if (index.updated_at) { %>(<%= get_time(index.updated_at) %>)<% } %>
+                            <br>- Được duyệt lần 2 bởi Quản trị viên <strong><% if (index.user_actived) { %><%= index.user_actived %><% } %></strong></small>
+                        <div class="clearfix"></div>
+                        <hr style="margin-top: 10px;">
+                </div>
+                    
                     <div class="col-xs-12">
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu lại</button>

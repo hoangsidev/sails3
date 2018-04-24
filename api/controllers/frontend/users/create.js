@@ -1,14 +1,12 @@
 module.exports = {
-  friendlyName: 'Delete',
-  description: 'Delete words.',
+  friendlyName: 'Create',
+  description: 'Create words.',
   inputs: {
-    id: { type: 'string' },
-    check_page :  { type: 'string' }
   },
   exits: {
     success: {
       responseType: 'view',
-      viewTemplatePath: 'backend/approvals/approvals'
+      viewTemplatePath: 'backend/users/create_user'
     },
     redirect: {
       responseType: 'redirect'
@@ -22,15 +20,12 @@ module.exports = {
       } else {
         if ((await sails.helpers.backend.checkrole(this.req.session.me)) === 0) { return exits.redirect(sails.config.custom.base_url); }
       }
-    // end check login and role
-    var delete_word = await Words.destroy({ id: inputs.id }).fetch();
-    if (delete_word.length === 0) { console.log('Not found id' + inputs.id); } else { 
-      if(inputs.check_page =='edit') {
-        return exits.redirect('/backend/approvals/page/1'); 
-      } else {
-        return exits.redirect('back'); 
-      }
-    }
-    // return exits.success();  
+    // end check login and role    
+    var page_title = 'Thêm mới người dùng';
+    var page_slug = 'create_user';
+    return exits.success({ 
+      page_title : page_title,
+      page_slug : page_slug
+    });
   }
 };
