@@ -9,9 +9,8 @@ module.exports = {
     }
   },
   fn: async function (inputs, exits) {
-    // console.log(this.req.session.me);
+    this.res.clearCookie('me');
     this.req.session.destroy(function(err) {  
-      
         return exits.redirect(sails.config.custom.base_url_admin);
     });
   }
