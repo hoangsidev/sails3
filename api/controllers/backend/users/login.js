@@ -3,7 +3,8 @@ module.exports = {
   description: 'Login users.',
   inputs: {
     username: { type: 'string' },
-    password: { type: 'string' }
+    password: { type: 'string' },
+    remember: { type: 'string' }
   },
   exits: {
     success: {
@@ -40,10 +41,9 @@ module.exports = {
         });
       } else {
         this.req.session.me = data_user ? JSON.stringify(data_user) : null; // đăng ký session
-        this.res.cookie('me', JSON.stringify(data_user), { signed:true, maxAge: 900000 });
-
-        // console.log(this.req.signedCookies.me);
-
+        if(inputs.remember=='on') {
+          this.res.cookie('me', JSON.stringify(data_user), { signed : true, maxAge : 900000 });
+        }
         // không làm được cookie
         // var count_approvals = await  Words.count({ 'active' : [ 0, 1 ] });
         // this.req.session.count_approvals = count_approvals!=0 ? JSON.stringify(count_approvals) : null;
