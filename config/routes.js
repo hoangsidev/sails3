@@ -24,13 +24,13 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
- 'GET /': { action: 'frontend/index' },
+
 
 
   // backend
   'GET /backend/dashboard': { action: 'backend/dashboard' },
   'GET /backend/words/page/:page': { action: 'backend/words/words' },
-  'GET /backend/word/view/:id': { action: 'backend/words/view' },
+  // 'GET /backend/word/view/:id': { action: 'backend/words/view' },
   'GET /backend/word/create': { action: 'backend/words/create' },
   'POST /backend/word/insert': { action: 'backend/words/insert' },
   'GET /backend/word/edit/:id': { action: 'backend/words/edit' },
@@ -50,7 +50,7 @@ module.exports.routes = {
   'GET /backend/logout': { action: 'backend/users/logout' },
 
   'GET /backend/users/page/:page': { action: 'backend/users/users' },
-  'GET /backend/user/view/:id': { action: 'backend/users/view' },
+  // 'GET /backend/user/view/:id': { action: 'backend/users/view' },
   'GET /backend/user/create': { action: 'backend/users/create' },
   'POST /backend/user/insert': { action: 'backend/users/insert' },
   'GET /backend/user/edit/:id': { action: 'backend/users/edit' },
@@ -58,11 +58,16 @@ module.exports.routes = {
   'POST /backend/user/delete': { action: 'backend/users/delete' },
 
   'GET /backend/config': { action: 'backend/config' },
-  'GET /backend/feedback': { action: 'backend/feedback' }
+  'GET /backend/feedback': { action: 'backend/feedback' },
  
   // end backend
 
 
+  // frontend
+  'GET /':  { action: 'frontend/words/index' },
+  'GET /search': { action: 'frontend/words/search' },
+  'GET /signup': { action: 'frontend/users/signup' }
+  // end frontend
 
   /***************************************************************************
   *                                                                          *

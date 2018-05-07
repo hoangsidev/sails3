@@ -1,85 +1,163 @@
-$(document).ready(function (e) {
+///////////////////////Focus tai vị tri cuoi
+jQuery.fn.putCursorAtEnd = function() {
 
-    $("#s").focus();
+    return this.each(function() {
 
-    $('#back-to-top').click(function () {
-        $('body,html').animate({
-            scrollTop: 0
-        }, 1000);
-        return false;
+        // Cache references
+        var $el = $(this),
+            el = this;
+
+        // Only focus if input isn't already
+        if (!$el.is(":focus")) {
+            $el.focus();
+        }
+
+        // If this function exists... (IE 9+)
+        if (el.setSelectionRange) {
+
+            // Double the length because Opera is inconsistent about whether a carriage return is one character or two.
+            var len = $el.val().length * 2;
+
+            // Timeout seems to be required for Blink
+            setTimeout(function() {
+                el.setSelectionRange(len, len);
+            }, 1);
+
+        } else {
+
+            // As a fallback, replace the contents with itself
+            // Doesn't work in Chrome, but Chrome supports setSelectionRange
+            $el.val($el.val());
+
+        }
+
+        // Scroll to the bottom, in case we're in a tall textarea
+        // (Necessary for Firefox and Chrome)
+        this.scrollTop = 999999;
+
     });
 
-    $('[data-toggle="tooltip"]').tooltip();
-
-    $('#add_mean').click(function () {
-        $('#wrap_mean').append(`
-        <div class="form-group mean_item">
-            <div class="col-xs-9">
-                <input type="text" class="form-control" name="mean[]">
-            </div>
-            <div class="col-xs-2" style="padding-left: 0;">
-                <select class="form-control" name="type_word[]">
-                    <option value="n/a">N/A</option>
-                    <option value="n">Danh từ</option>
-                    <option value="exp">Cụm từ</option>
-                    <option value="n-prep">Danh từ hoặc giới từ</option>
-                    <option value="prep">Giới từ</option>
-                    <option value="adj">Tính từ</option>
-                    <option value="exc">Thán từ</option>
-                    <option value="adv">Trạng từ</option>
-                    <option value="verb-1">Động từ nhóm I</option>
-                    <option value="verb-2">Động từ nhóm II</option>
-                    <option value="verb-3">Động từ nhóm III</option>
-                </select>
-            </div>
-            <div class="col-xs-1" style="padding-left: 0;">
-            <button class="btn btn-danger btn-block btn_del_mean" type="button"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
-        </div>
-            <div class="clearfix"></div>
-        </div>
-        `);
-
-        $('.btn_del_mean').click(function(){
-            $(this).closest('.mean_item').find('input[name="mean[]"]').val('');
-            $(this).closest('.mean_item').find('select[name="type_word[]"]').val('');
-            $(this).closest('.mean_item').remove();
-        });
-    });
-
-    $('#add_example').click(function () {
-        $('#wrap_example').append(`
-        <div class="form-group example_item">
-            <div class="col-md-5">
-                <input type="text" class="form-control" name="sentence[]">
-            </div>
-            <div class="col-md-6" style="padding-left: 0;">
-                <input type="text" class="form-control" name="mean_ex[]">
-            </div>
-            <div class="col-md-1" style="padding-left: 0;">
-                                                <button class="btn btn-danger btn-block btn_del_example" type="button"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
-                                            </div>
-            <div class="clearfix"></div>
-        </div>
-        `);
-        $('.btn_del_example').click(function(){
-            $(this).closest('.example_item').find('input[name="sentence[]"]').val('');
-            $(this).closest('.example_item').find('select[name="mean_ex[]"]').val('');
-            $(this).closest('.example_item').remove();
-        });
-    });
+};
 
 
-    $('.btn_del_mean').click(function(){
-        $(this).closest('.mean_item').find('input[name="mean[]"]').val('');
-        $(this).closest('.mean_item').find('select[name="type_word[]"]').val('');
-        $(this).closest('.mean_item').remove();
-    });
+$( document ).ready(function() {
+	
+///////////////////////Focus
+var searchInput = $(".search-input");
 
-    $('.btn_del_example').click(function(){
-        $(this).closest('.example_item').find('input[name="sentence[]"]').val('');
-        $(this).closest('.example_item').find('select[name="mean_ex[]"]').val('');
-        $(this).closest('.example_item').remove();
-    });
-
-    
+searchInput
+  .putCursorAtEnd() // should be chainable
+  .on("focus", function() { // could be on any event
+    searchInput.putCursorAtEnd()
 });
+	
+	
+	////////////////////////////////
+		$('#search_del_data').click(function(){
+			$('#search').val(''); 
+			$('#search').focus();
+	   });
+	
+	$('.toogle-nav').click(function(){
+		$('.primary-navigation').slideToggle();
+	});
+	
+	
+	$('.deletedata').click(function(){
+		$(this).closest(".search").find(".search-input").val("");
+		$(this).closest(".search").find(".search-input").focus();
+	});
+	
+	
+	///////////////////////////////////////
+
+		 if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+				  $(".search-group-child").addClass("active_trans");
+				  $(".search-group-child2-wrap").addClass("active_trans2 search-group-child2-plus");
+				  
+					$(".regis-btn, .sign-in-btn, .signout-btn, .signinadmin-btn").css("z-index","1");
+				   
+				} else {
+					$(".search-group-child").removeClass("active_trans");
+					$(".search-group-child2-wrap").removeClass("active_trans2 search-group-child2-plus");
+					
+					$(".regis-btn, .sign-in-btn, .signout-btn, .signinadmin-btn").css("z-index","800");
+				}
+		
+		$( window ).scroll(function() {
+		  
+				 if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+				  $(".search-group-child").addClass("active_trans");
+				  $(".search-group-child2-wrap").addClass("active_trans2 search-group-child2-plus");
+				  
+					$(".regis-btn, .sign-in-btn, .signout-btn, .signinadmin-btn").css("z-index","1");
+				   
+				} else {
+					$(".search-group-child").removeClass("active_trans");
+					$(".search-group-child2-wrap").removeClass("active_trans2 search-group-child2-plus");
+					
+					$(".regis-btn, .sign-in-btn, .signout-btn, .signinadmin-btn").css("z-index","800");
+				}
+		  
+		});
+		
+		/////////////////not click//////
+			
+			$("a.notclick").click(function(event) {
+         		event.preventDefault(); 
+          });
+		  
+	/////////Ve kanji////////////////////
+	
+	$( ".search-draw-kanji" ).on( "click", function() {  
+	
+		 $(".form_draw .kanji-draw-wrap").show();
+		  
+		 InitThis();
+		 
+    });
+	
+	$( ".search-draw-kanji1" ).on( "click", function() {  
+		 
+		 $(".form_draw1 .kanji-draw-wrap").show();
+		  
+		 InitThis1();
+		 
+    });
+		
+	
+	$(".close-kanji-draw").click(function(){
+		$(".kanji-draw-wrap").hide();
+	});
+	
+	
+	
+	
+	/* Mẫu câu */
+	$("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+        e.preventDefault();
+        $(this).siblings('a.active').removeClass("active");
+        $(this).addClass("active");
+        var index = $(this).index();
+        $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+        $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+    });
+	
+	$(".see_detail_btn").click(function(){
+		 $(this).closest(".bhoechie-tab-item").find(".bhoechie-tab-item-content").toggle();
+	});
+	
+	/*End  Mẫu câu */
+	
+		
+
+});//end document
+
+
+
+
+
+
+
+
+
